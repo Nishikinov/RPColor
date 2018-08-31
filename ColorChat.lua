@@ -21,8 +21,11 @@ end
 function sampev.onServerMessage(color, text)
 	if color == -413892353 or color == -793842689 then
 		sampAddChatMessage("{"..ini.settings.currentcolor.."}"..text, -1)
-		print(ini.settings.currentcolor)
-		print(color)
+		return false
+	elseif text:find('{E75480},') then
+		text = string.gsub(text, '({E75480})', "")
+		text = string.gsub(text, '(".*")', "{ffffff}%1{"..ini.settings.currentcolor.."}")
+		sampAddChatMessage(text, -1)
 		return false
 	end
 end
