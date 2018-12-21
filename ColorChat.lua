@@ -21,7 +21,7 @@ local ini = inicfg.load(nil, 'rpcolor')
 
 function samp.onPlayerChatBubble(playerId, color, distance, duration, message)
 	if sampIsPlayerConnected(playerId) and tostring(color) == "-413892353" then
-		emul_rpc('onPlayerChatBubble', { tonumber(playerId), -1, 15, 5000, tostring("(( "..text.." ))") })
+		emul_rpc('onPlayerChatBubble', { tonumber(playerId), -1, 15, 5000, tostring("(( "..message.." ))") })
 	end
 end
 
