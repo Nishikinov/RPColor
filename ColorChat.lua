@@ -19,9 +19,10 @@ end
 
 local ini = inicfg.load(nil, 'rpcolor')
 
-function samp.onPlayerChatBubble(playerId, color, distance, duration, message)
+function sampev.onPlayerChatBubble(playerId, color, distance, duration, message)
 	if sampIsPlayerConnected(playerId) and tostring(color) == "-413892353" then
-		emul_rpc('onPlayerChatBubble', { tonumber(playerId), -1, 15, 5000, tostring("(( "..message.." ))") })
+		emul_rpc('onPlayerChatBubble', { tonumber(playerId), -1, 15, 5000, tostring("{"..ini.settings.currentcolor.."}"..message) })
+		return false
 	end
 end
 
@@ -30,10 +31,11 @@ function sampev.onServerMessage(color, text)
 		sampAddChatMessage("{"..ini.settings.currentcolor.."}"..text, -1)
 		return false
 	elseif text:find('{E75480}') then
-		text = string.gsub(text, '({E75480})', "")
 		if text:find('{E75480},') then
+			text = string.gsub(text, '({E75480})', "")
 			text = string.gsub(text, '(".*")', "{ffffff}%1{"..ini.settings.currentcolor.."}")
 		end
+		text = string.gsub(text, '({E75480})', "{"..ini.settings.currentcolor.."}")
 		sampAddChatMessage(text, -1)
 		return false
 	end
